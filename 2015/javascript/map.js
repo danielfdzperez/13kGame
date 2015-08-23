@@ -1,4 +1,4 @@
-function Map(map, conf, tile, tile_dimensions){
+function Map(map, conf, tile, tile_dimensions, world){
 	if(!conf)
 		throw "Error map conf"
 	this.tiles_type           = tile /*Type of tyles*/
@@ -10,7 +10,24 @@ function Map(map, conf, tile, tile_dimensions){
 	this.reverse_map          = null
 	this.conf                 = conf
 	this.tile_dimensions      = tile_dimensions
+	this.world                = world
 	this.createReverseMap()
+}
+
+/*Visible tiles for scroll in y*/
+Map.prototype.visibleTiles = function(){
+	var map_dimensions = this.current_map.length
+	var canvas_dimensions = Math.floor(this.world.canvas.height/this.tile_dimensions)
+	return  map_dimensions <= canvas_dimensions ? map_dimensions : canvas_dimensions
+}
+
+Map.prototype.halfVisibility = function(){
+	return Math.floor(this.visibleTiles()/2)
+}
+
+/*Return length of the current map in y*/
+Map.prototype.length = function(){
+	return this.current_map.length
 }
 
 Map.prototype.changeCurrentMap = function(n){
@@ -18,21 +35,32 @@ Map.prototype.changeCurrentMap = function(n){
 	   this.restart()
 	   this.current_map = this.map[n >= 0 ? this.n_current_map = n : ++this.n_current_map]
 	   this.createReverseMap()
+
 	}
 }
 
-Map.prototype.draw = function(ctx){
-	for(var i = 0; i < this.current_map.length; i++)
-    	for(var j = 0; j < this.current_map[i].length; j++)
-    		this.tiles_type[this.current_map[i][j]].draw(ctx, i, j)
+Map.prototype.drawScroll = function(ctx, player_position, distance_to_player, fix_y){
+	var tile_player_position = pointToTile(player_position, this.tile_dimensions)
+
+    var first_y_tile = Math.max(0,tile_player_position.y - this.halfVisibility() - fix_y)
+    var last_y_tile = Math.min(this.length(),tile_player_position.y + this.halfVisibility() + 1 - fix_y)
+    
+    for(var i = first_y_tile; i < last_y_tile; i++){
+       if(i < 0 || i > this.current_map.length-1)
+       	 alert(i)	
+       for(var j = 0; j < this.current_map[i].length; j++)
+          this.tiles_type[this.current_map[i][j]].draw(ctx, i, j, distance_to_player)
+    }
+
+    
+	
     var position = this.getEndPoint()
     color = 'purple' 
     ctx.beginPath()
     ctx.fillStyle  = color
-    ctx.arc( position.x, position.y, 10, 0, (Math.PI/180)*360, false)
+    ctx.arc( position.x, position.y + distance_to_player, 10, 0, (Math.PI/180)*360, false)
     ctx.fill()
     ctx.closePath()
-
 }
 
 Map.prototype.isWalkable = function(y, x){
@@ -55,14 +83,16 @@ Map.prototype.createReverseMap = function(){
 	this.reverse_map = MultidimensionalArray(this.current_map.length)
 	for(var i = 0; i < this.current_map.length; i++)
     	for(var j = this.current_map[i].length-1; j >= 0; j--)
-    		if(this.conf[this.n_current_map].non_reverse_tiles.length > 0)
-    		   for(var special = 0; special < this.conf[this.n_current_map].non_reverse_tiles.length; special++)
-    		      if(this.current_map[i][j] != this.conf[this.n_current_map].non_reverse_tiles[special])
-    		         this.reverse_map[i][this.current_map[i].length - 1 - j] = this.current_map[i][j]
-    		      else{
-    		      	 this.reverse_map[i][this.current_map[i].length - 1 - j] = this.reverse_map[i][j]
+    		if(this.conf[this.n_current_map].non_reverse_tiles.length > 0){
+    		   	var special_tiles = this.conf[this.n_current_map].non_reverse_tiles
+    		   	var future_position = this.current_map[i].length - 1 - j
+    		    if(!isInArray(special_tiles,this.current_map[i][j]) && !isInArray(special_tiles,this.reverse_map[i][future_position]) && 
+    		       !isInArray(special_tiles,this.current_map[i][future_position]) )
+    		         this.reverse_map[i][future_position] = this.current_map[i][j]
+    		    else{
     		   	     this.reverse_map[i][j] = this.current_map[i][j]
-    		      }
+    		    }
+    		}
     		else
     			this.reverse_map[i][this.current_map[i].length - 1 - j] = this.current_map[i][j]
 }

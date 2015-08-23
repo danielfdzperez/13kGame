@@ -57,3 +57,14 @@ function tileToPoint(point, size){
     var point = point
     return new Point( (point.x * size + size/2), (point.y * size + size/2) )
 }
+
+function pointToTile(point, size){
+    return new Point( Math.floor(point.x/size), Math.floor(point.y/size))
+}
+
+function isInArray(array, x){
+    for(var i in array)
+        if(array[i] == x)
+            return true
+    return false
+}

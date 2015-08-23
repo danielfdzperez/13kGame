@@ -1,10 +1,9 @@
-  var width = 50
-  var height = 50
-  var path = new Tile(true  , 'white', width, height, false)
-  var ground = new Tile(false , 'brown', width, height, false, path)
-  var rock = new Tile(false, 'grey', width, height, false)
-  var water = new Tile(false, 'blue', width, height, false)
-  var fire = new Tile(true, 'red', width, height, true, water)
+  var tile_size = 50
+  var path = new Tile(true  , 'white', tile_size, false)
+  var ground = new Tile(false , 'brown', tile_size, false, path)
+  var rock = new Tile(false, 'grey', tile_size, false)
+  var water = new Tile(false, 'blue', tile_size, false)
+  var fire = new Tile(true, 'red', tile_size, true, water)
   water.reverse = fire
-  var special = new Tile(false, 'black', width, height, false)
+  var special = new Tile(false, 'black', tile_size, false)
   var all_tiles = {'g': ground, 'w':water, 'p':path, 'f':fire, 'r':rock, 's':special}

@@ -5,11 +5,11 @@ function Character(position, world){
 	this.dimensions = 5
 }
 
-Character.prototype.getSquarePoints = function(x, y, width, height){
+Character.prototype.getSquarePoints = function(x, y, tile_size){
 	var obj = {}
-	obj["down"]  = Math.floor((y+this.dimensions-1)/height)
-	obj["up"]    = Math.floor((y-this.dimensions)/height)
-	obj["left"]  = Math.floor((x-this.dimensions)/width)
-	obj["right"] = Math.floor((x+this.dimensions-1)/width)
+	obj["down"]  = Math.floor((y+this.dimensions-1)/tile_size)
+	obj["up"]    = Math.floor((y-this.dimensions)/tile_size)
+	obj["left"]  = Math.floor((x-this.dimensions)/tile_size)
+	obj["right"] = Math.floor((x+this.dimensions-1)/tile_size)
 	return obj
 }

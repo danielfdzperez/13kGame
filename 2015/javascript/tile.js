@@ -1,31 +1,30 @@
-function Tile(walkable, color, width, height, lethal, reverse){
+function Tile(walkable, color, size, lethal, reverse){
 	this.walkable = walkable
 	this.color       = color
-	this.width       = width
-	this.height      = height
+	this.size        = size
 	this.is_reversed = false
 	this.is_lethal   = lethal
 	this.reverse     = reverse || this
 }
 
-Tile.prototype.draw = function(ctx, y, x){
+Tile.prototype.draw = function(ctx, y, x, distance){
 	if(!this.is_reversed)
-		this.drawMe(ctx, y, x)
+		this.drawMe(ctx, y, x, distance)
 	else
-		this.drawReverse(ctx, y, x)
+		this.drawReverse(ctx, y, x, distance)
 }
 
-Tile.prototype.drawMe = function(ctx, y, x){
+Tile.prototype.drawMe = function(ctx, y, x, distance){
       ctx.strokeStyle = 'black'
       ctx.lineWidth  = 1
-      ctx.strokeRect(x*this.width, y*this.height, this.width, this.height)
+      ctx.strokeRect(x*this.size, y*this.size + distance, this.size, this.size)
 
 	  ctx.fillStyle = this.color
-      ctx.fillRect(x*this.width, y*this.height, this.width, this.height)
+      ctx.fillRect(x*this.size, y*this.size + distance, this.size, this.size)
 }
 
-Tile.prototype.drawReverse = function(ctx, y, x){
-	this.reverse.drawMe(ctx,y,x)
+Tile.prototype.drawReverse = function(ctx, y, x, distance){
+	this.reverse.drawMe(ctx,y,x, distance)
 }
 
 Tile.prototype.isWalkable = function(){

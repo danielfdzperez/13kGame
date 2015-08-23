@@ -4,30 +4,32 @@ Player.prototype.constructor = Player
    position - Point : Is the player position
 */
 var keys = {"up": 38, "right": 39, "left": 37, "reverse_map":82, "reverse_tiles":69}
+var move_right = false, move_left = false, jump = false
 function Player(position, world){
 	Character.call(this, position, world)
 	this.in_the_air = false
 	this.jumping    = false
 
-	this.reverse_map_pressed = false
+	this.parkour_right = false
+	this.parkour_left  = false
+
+	this.reverse_map_pressed   = false
 	this.reverse_tiles_pressed = false
-   
+
     var that = this
     this.action     = {"up": function(){
-    	                        if(!that.in_the_air){
+    	                        if(that.canJump()){
 		                            that.speed.y = -10
 		                            that.in_the_air = true
 		                            that.jumping    = true
 		                      }},
-		                "right": function(){that.speed.x = 5},
-		                "left" : function(){that.speed.x = -5},
+		                "right": function(){move_right = true},
+		                "left" : function(){move_left = true},
 		                "no_right": function(){
-		                	           if(that.speed.x == 5)
-		                                  that.speed.x = 0
+		                	           move_right = false
 		                            },
 		                "no_left": function(){
-		                	           if(that.speed.x == -5)
-		                                  that.speed.x = 0
+		                	           move_left = false
 		                            },
 		                "reverse_map": function(){
 		                	                       if(!that.reverse_map_pressed){
@@ -48,25 +50,48 @@ function Player(position, world){
 	this.keys = {"up": keys.up, "right": keys.right, "left": keys.left, "reverse_map":keys.reverse_map, "reverse_tiles": keys.reverse_tiles}
 }
 
+//var parkour_count = 10
 Player.prototype.updatePhysics = function(t){
+
+    var move_in_x = false
+	//if(move_right || this.parkour_left){
+	if(move_right){
+		move_in_x = true
+		this.speed.x = 5
+	}
+	//if(move_left || this.parkour_right){
+	if(move_left){	
+		move_in_x = true
+		this.speed.x = -5
+	}
+	if(!move_in_x)
+		this.speed.x = 0
+
+	/*if(this.parkour_left)
+		parkour_count --
+	if(parkour_count <= 0){
+		this.parkour_left = false
+		parkour_count = 10
+	}*/
+
 	var x_position = updateMRU(this.position.x, this.speed.x, 1)
     
-    var can_move = this.world.checkMovement(this.getSquarePoints(x_position, this.position.y, this.world.width, this.world.height))
+    var can_move = this.world.checkMovement(this.getSquarePoints(x_position, this.position.y, this.world.tile_size))
 
     if(this.speed.x > 0){
     	if(can_move["up right"] && can_move["down right"])
 	       this.position.x = x_position
 	    else
-	    	this.position.x = Math.floor((this.position.x+this.dimensions)/50)*50-this.dimensions
+	    	this.position.x = (Math.floor(this.position.x+this.dimensions)/this.world.tile_size)*this.world.tile_size-this.dimensions
     }
 	else
 		if(can_move["up left"] && can_move["down left"])
 	       this.position.x = x_position
 	   else
-	    	this.position.x = Math.floor((this.position.x-this.dimensions+1)/50)*50 + this.dimensions
+	    	this.position.x = Math.floor((this.position.x-this.dimensions+1)/this.world.tile_size)*this.world.tile_size + this.dimensions
    
     /*Comprobar que no esta callendo*/
-    can_move = this.world.checkMovement(this.getSquarePoints(this.position.x, this.position.y, this.world.width, this.world.height))
+    can_move = this.world.checkMovement(this.getSquarePoints(this.position.x, this.position.y, this.world.tile_size))
     if(can_move["down right"] && can_move["down left"])
     	   if(!this.in_the_air)
     	   	  this.in_the_air = true
@@ -77,32 +102,32 @@ Player.prototype.updatePhysics = function(t){
 	   this.speed.y = obj.speed
 	
     
-        can_move = this.world.checkMovement(this.getSquarePoints(this.position.x, obj.pos, this.world.width, this.world.height))
+        can_move = this.world.checkMovement(this.getSquarePoints(this.position.x, obj.pos, this.world.tile_size))
 	
         if( !(can_move["down right"] && can_move["down left"]) ){
-        	this.position.y = ((Math.floor((this.position.y)/50))+1) *50 - this.dimensions
+        	this.position.y = ((Math.floor((this.position.y)/this.world.tile_size))+1) *this.world.tile_size - this.dimensions
 	    	this.speed.y = 0
 	    	this.in_the_air = false
 	        
 	    }
 	    else
 	    	if( !(can_move["up right"] && can_move["up left"]) ){
-	    		this.position.y = Math.floor(this.position.y/50)*50 + this.dimensions
+	    		this.position.y = Math.floor(this.position.y/this.world.tile_size)*this.world.tile_size + this.dimensions
 	    	    this.speed.y = 0
 	    	}
 	    	else
 	    	   this.position.y = obj.pos   		
 	}
-    
 }
 
-Player.prototype.draw = function(ctx){
+Player.prototype.draw = function(ctx, difference){
 	ctx.fillStyle = 'black'
-    ctx.fillRect(this.position.x-this.dimensions, this.position.y-this.dimensions, this.dimensions*2, this.dimensions*2)
-    color = 'white' 
+    ctx.fillRect( this.position.x-this.dimensions, 
+    	          (this.position.y + difference)-this.dimensions, this.dimensions*2, this.dimensions*2)
+    color = 'white'
     ctx.beginPath()
     ctx.fillStyle  = color
-    ctx.arc(this.position.x, this.position.y, 2, 0, (Math.PI/180)*360, false)
+    ctx.arc(this.position.x, this.position.y + difference, 2, 0, (Math.PI/180)*360, false)
     ctx.fill()
     ctx.closePath()
 }
@@ -111,6 +136,28 @@ Player.prototype.stop = function(){
 	this.speed.x = 0
 	this.speed.y = 0
 
+}
+
+Player.prototype.canJump = function(){
+	var can_jump = false
+	if(!this.in_the_air)
+		can_jump = true
+	/*else{
+		var parkour_right = this.world.checkMovement(this.getSquarePoints(this.position.x+1, this.position.y, this.world.tile_size))
+		var parkour_left = this.world.checkMovement(this.getSquarePoints(this.position.x-1, this.position.y, this.world.tile_size))
+		if( !(parkour_right["up right"] && parkour_right["down right"])){
+            can_jump = true
+            this.parkour_right = true
+        }else
+			if(!(parkour_left["up left"] && parkour_left["down left"])){
+				can_jump = true
+                this.parkour_left = true
+			}
+			
+	}*/
+
+
+	return can_jump
 }
 
 Player.prototype.events = function(event){

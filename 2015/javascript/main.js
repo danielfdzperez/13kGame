@@ -1,8 +1,8 @@
 var world
 function start(){
-  world = new World("canvas", maps, map_conf, all_tiles, 50, 50)
+  world = new World("canvas", maps, map_conf, all_tiles, tile_size)
   world.start()
-  loop()
+  //loop()
 }
 
 function loop(){

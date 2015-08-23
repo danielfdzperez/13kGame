@@ -7,7 +7,7 @@ function Events(){
 Events.prototype.enableInputs = function(){
     var that = this
     addEventListener("keydown", function (e) {
-        console.log(e.keyCodew)
+        console.log(e.keyCode)
 	    that.keys_down[e.keyCode] = true 
 	    that.last_key = e.keyCode
 	    delete that.keys_up[e.keyCode] 
