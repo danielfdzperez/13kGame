@@ -1,4 +1,4 @@
-function Map(map, conf, tile, tile_dimensions, world){
+function Map(map, conf, tile, tile_dimensions, enemy, world){
 	if(!conf)
 		throw "Error map conf"
 	this.tiles_type           = tile /*Type of tyles*/
@@ -10,6 +10,8 @@ function Map(map, conf, tile, tile_dimensions, world){
 	this.reverse_map          = null
 	this.conf                 = conf
 	this.tile_dimensions      = tile_dimensions
+	this.enemy                = enemy
+	this.current_enemy        = []
 	this.world                = world
 	this.createReverseMap()
 }
@@ -35,8 +37,16 @@ Map.prototype.changeCurrentMap = function(n){
 	   this.restart()
 	   this.current_map = this.map[n >= 0 ? this.n_current_map = n : ++this.n_current_map]
 	   this.createReverseMap()
-
+	   this.spawnEnemy()
+	   sound.play('lvl')
 	}
+}
+
+Map.prototype.spawnEnemy = function(){
+	this.current_enemy.splice(0, this.current_enemy.length)
+	var enemy = this.enemy[this.n_current_map]
+	for(var i in enemy)
+	   this.current_enemy.push(new Enemy(enemy[i].pos, enemy[i].speed, this.world))
 }
 
 Map.prototype.drawScroll = function(ctx, player_position, distance_to_player, fix_y){
@@ -104,6 +114,20 @@ Map.prototype.reverseMap = function(){
 	this.current_map = this.reverse_map
 	this.reverse_map = aux
 	this.is_reversed = !this.is_reversed
+	this.reverseEnemy()
+}
+
+Map.prototype.reverseEnemy = function(){
+	for(var i in this.current_enemy){
+		var enemy = this.current_enemy[i]
+		var reverse_position = this.current_map[0].length * this.tile_dimensions -  enemy.position.x
+		var reverse_point_position = pointToTile(new Point(reverse_position, enemy.position.y), this.tile_dimensions)
+		if(!isInArray(this.conf[this.n_current_map].non_reverse_tiles, 
+			this.current_map[reverse_point_position.y][reverse_point_position.x])){
+		    enemy.position.x = reverse_position 
+		    enemy.speed.x *= -1
+	    }
+	}
 }
 
 Map.prototype.restart = function(){

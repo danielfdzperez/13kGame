@@ -72,12 +72,20 @@
   var maps = [map1, map2, map3, map4, map5, map6]
 
   var map_conf = [
+                  
+                 
                   MapConf(new Point(1,1), new Point(8,1),false, true, false, ['s']),
                   MapConf(new Point(1,1), new Point(1,4),true, false, false),
                   MapConf(new Point(1,1), new Point(8,6),true, true, true),
                   MapConf(new Point(1,1), new Point(1,9),true, true, true),
                   MapConf(new Point(8,8), new Point(8,1),true, true, true, ['s']), 
-                  MapConf(new Point(8,17), new Point(1,1),true, true, true, ['s', 'g'])
-
+                  MapConf(new Point(8,17), new Point(1,1),true, true, true, ['s'])
                   ]
+  var enemy = [
+                [enemyConf(new Point(4, 3), 2)],
+                [],[/*enemyConf(new Point(4, 2), 2)*/],
+                [enemyConf(new Point(5, 1), 2)],
+                [enemyConf(new Point(4, 6), 2)],
+                [enemyConf(new Point(4, 15), 2)]
+              ]
                   

@@ -4,14 +4,18 @@ Player.prototype.constructor = Player
    position - Point : Is the player position
 */
 var keys = {"up": 38, "right": 39, "left": 37, "reverse_map":82, "reverse_tiles":69}
-var move_right = false, move_left = false, jump = false
 function Player(position, world){
-	Character.call(this, position, world)
+	Character.call(this, position, 5, world)
 	this.in_the_air = false
 	this.jumping    = false
 
 	this.parkour_right = false
 	this.parkour_left  = false
+
+	this.move_right   = false
+	this.move_left    = false
+	this.jump         = false
+	this.is_alive     = false
 
 	this.reverse_map_pressed   = false
 	this.reverse_tiles_pressed = false
@@ -22,14 +26,15 @@ function Player(position, world){
 		                            that.speed.y = -10
 		                            that.in_the_air = true
 		                            that.jumping    = true
+		                            sound.play('jump')
 		                      }},
-		                "right": function(){move_right = true},
-		                "left" : function(){move_left = true},
+		                "right": function(){that.move_right = true},
+		                "left" : function(){that.move_left = true},
 		                "no_right": function(){
-		                	           move_right = false
+		                	           that.move_right = false
 		                            },
 		                "no_left": function(){
-		                	           move_left = false
+		                	           that.move_left = false
 		                            },
 		                "reverse_map": function(){
 		                	                       if(!that.reverse_map_pressed){
@@ -53,14 +58,17 @@ function Player(position, world){
 //var parkour_count = 10
 Player.prototype.updatePhysics = function(t){
 
+	if(!this.is_alive)
+    	return
+
     var move_in_x = false
 	//if(move_right || this.parkour_left){
-	if(move_right){
+	if(this.move_right){
 		move_in_x = true
 		this.speed.x = 5
 	}
 	//if(move_left || this.parkour_right){
-	if(move_left){	
+	if(this.move_left){	
 		move_in_x = true
 		this.speed.x = -5
 	}
@@ -121,6 +129,10 @@ Player.prototype.updatePhysics = function(t){
 }
 
 Player.prototype.draw = function(ctx, difference){
+
+    if(!this.is_alive)
+    	return
+
 	ctx.fillStyle = 'black'
     ctx.fillRect( this.position.x-this.dimensions, 
     	          (this.position.y + difference)-this.dimensions, this.dimensions*2, this.dimensions*2)
@@ -133,9 +145,8 @@ Player.prototype.draw = function(ctx, difference){
 }
 
 Player.prototype.stop = function(){
-	this.speed.x = 0
-	this.speed.y = 0
-
+	this.move_right = false
+	this.move_left = false
 }
 
 Player.prototype.canJump = function(){
@@ -158,6 +169,45 @@ Player.prototype.canJump = function(){
 
 
 	return can_jump
+}
+
+Player.prototype.reverseControls = function(){
+	
+	var aux  = null
+	var row_keys = ["up", "right", "left"]
+	var keys_number = row_keys.length
+	var special_keys = ["reverse_map", "reverse_tiles"]
+	var special_keys_number = special_keys.length
+
+	for(var i = 0; i < keys_number; i++){
+		var random = Math.floor(Math.random()*keys_number)
+		var aux = this.keys[row_keys[random]]
+		this.keys[row_keys[random]] = this.keys[row_keys[i]]
+		this.keys[row_keys[i]] = aux
+	}
+	for(var i = 0; i < special_keys_number; i++){
+		var random = Math.floor(Math.random()*special_keys_number)
+		var aux = this.keys[special_keys[random]]
+		this.keys[special_keys[random]] = this.keys[special_keys[i]]
+		this.keys[special_keys[i]] = aux
+	}
+	this.stop()
+}
+
+Player.prototype.die = function(){
+	this.is_alive = false
+	sound.play('damage')
+}
+
+Player.prototype.restart = function(position){
+	this.is_alive = true
+	this.position.x = position.x
+	this.position.y = position.y
+}
+
+Player.prototype.orderControls = function(){
+    for(var i in keys)
+	this.keys[i] = keys[i]
 }
 
 Player.prototype.events = function(event){

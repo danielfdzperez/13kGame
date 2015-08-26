@@ -1,6 +1,6 @@
 var world
 function start(){
-  world = new World("canvas", maps, map_conf, all_tiles, tile_size)
+  world = new World("canvas", maps, map_conf, enemy, all_tiles, tile_size)
   world.start()
   //loop()
 }

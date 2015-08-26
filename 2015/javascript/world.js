@@ -1,32 +1,36 @@
-function World(canvas, map, conf_map, type_tiles, tile_size){
+function World(canvas, map, conf_map, enemy, type_tiles, tile_size){
 	this.canvas      = document.getElementById(canvas)
 	this.ctx         = this.canvas.getContext('2d')
 	this.type_tiles  = type_tiles
 	this.tile_size   = tile_size
-	this.map         = new Map(map, conf_map, type_tiles, this.tile_size, this)
+	this.map         = new Map(map, conf_map, type_tiles, this.tile_size, enemy, this)
 	this.player      = new Player(new Point(0,0), this)
-	//this.enemy       = enemy || []
+	this.enemy       = null
 	this.delta       = new FrameRateCounter(60)
 	this.event       = new Events()
+
+	this.player_die_animation = new ParticleSystem()
+	this.enemy_die_animation  = []
 }
 
 World.prototype.start = function(){
 	this.event.enableInputs()
-	this.newLevel(true)
+	this.newLevel(0)
 	this.loop()
 }
 
-World.prototype.newLevel = function(start){
-	if(!start)
-	   this.map.changeCurrentMap()
+World.prototype.newLevel = function(lvl){
+	//if(!start)
+	this.map.changeCurrentMap(lvl)
 	this.player.stop()
 	this.restartPlayerPosition()
+	this.player.orderControls()
+	this.enemy = this.map.current_enemy
 }
 
 World.prototype.restartPlayerPosition = function(){
 	 var position = this.map.getStartPoint()
-	 this.player.position.x = position.x
-	 this.player.position.y = position.y
+	 this.player.restart(position)
 }
 
 World.prototype.restarLevel = function(){
@@ -35,7 +39,7 @@ World.prototype.restarLevel = function(){
 }
 
 World.prototype.loop = function(){
-	this.delta.count_frames() 
+	this.delta.count_frames()
     var delta_time = this.delta.step
 
 	this.update(delta_time)
@@ -58,8 +62,6 @@ World.prototype.draw = function(){
 
     var difference_to_player = null
     var dy = fix_y > 0 ? fix_y - 1 : fix_y 
-    //if(fix_y > 0 &&  this.map.length() > this.canvas.height/this.tile_size)
-    	//dy --
     
     if(fix_y != 0)
        difference_to_player = ((this.map.halfVisibility() - tile_player_position.y) + dy)*50
@@ -69,18 +71,46 @@ World.prototype.draw = function(){
 	this.map.drawScroll(this.ctx, this.player.position, difference_to_player, fix_y)
 	
 	this.player.draw(this.ctx, difference_to_player)
+	for(var i in this.enemy)
+		this.enemy[i].draw(this.ctx, difference_to_player)
+
+	for(var i in this.enemy_die_animation)
+		this.enemy_die_animation[i].draw(this.ctx, difference_to_player)
+
+	this.player_die_animation.draw(this.ctx, difference_to_player)
 }
 
 World.prototype.update = function(delta_time){
-	//this.enemy[this.map.n_current_map].updatePhysics(delta_time)
+
+	if(!this.player_die_animation.end){
+		this.player_die_animation.updatePhysics(1)
+		if(this.player_die_animation.end)
+			this.restarLevel()
+		return
+	}
+
+	for(var i in this.enemy)
+		this.enemy[i].updatePhysics(delta_time)
+
 	this.player.events(this.event)
 	this.player.updatePhysics(delta_time)
-	if(!this.chekPlayerAlive())
-		this.restarLevel()
-	if(this.checkPlayerInsideWalkableTile())
-		this.restarLevel()
-	if(this.checkEndLevel())
-		this.newLevel(false)
+
+	if(!this.chekPlayerAlive() || this.checkPlayerInsideWalkableTile()){
+		this.player_die_animation.fill(this.player.position)
+		this.player.die()
+		return
+	}
+
+	this.checkPlayerEnemyCollision()
+
+	for(var i in this.enemy_die_animation){
+		this.enemy_die_animation[i].updatePhysics(delta_time)
+		if(this.enemy_die_animation[i].end)
+			this.enemy_die_animation.splice(i, 1)
+	}
+		
+	this.checkEndLevel()
+		
 }
 
 World.prototype.checkEndLevel = function(){
@@ -88,7 +118,7 @@ World.prototype.checkEndLevel = function(){
 	var end_tile = this.map.getEndTile()
 	if(obj.up == end_tile.y && obj.right == end_tile.x || obj.up == end_tile.y && obj.left == end_tile.x ||
 		obj.down == end_tile.y && obj.right == end_tile.x ||obj.down == end_tile.y && obj.left == end_tile.x)
-		return true
+		this.newLevel()
 	return false
 }
 
@@ -119,5 +149,16 @@ World.prototype.checkPlayerInsideWalkableTile = function(){
 	for (var i in obj)
 		if(!obj[i])
 			return true
+	return false
+}
+
+World.prototype.checkPlayerEnemyCollision = function(){
+	for(var i in this.enemy)
+		if(this.player.collision(this.enemy[i])){
+		   this.player.reverseControls()
+		   this.enemy_die_animation.push(new ParticleSystem(this.enemy[i].position, 'red',this.enemy[i].dimensions/2))
+		   this.enemy.splice(i, 1)
+		   sound.play('enemy collision')
+		}
 	return false
 }

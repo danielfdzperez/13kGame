@@ -68,3 +68,8 @@ function isInArray(array, x){
             return true
     return false
 }
+
+function enemyConf(pos, speed_x){
+    var obj = {"pos":new Point(pos.x, pos.y), "speed": speed_x}
+    return obj
+}
