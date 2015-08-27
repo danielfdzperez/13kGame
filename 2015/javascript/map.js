@@ -58,19 +58,23 @@ Map.prototype.drawScroll = function(ctx, player_position, distance_to_player, fi
     for(var i = first_y_tile; i < last_y_tile; i++){
        if(i < 0 || i > this.current_map.length-1)
        	 alert(i)	
-       for(var j = 0; j < this.current_map[i].length; j++)
+       for(var j = 0; j < this.current_map[i].length; j++){
+       	  if(this.current_map[i][j] == 'f')
+       	  	var a = 5
           this.tiles_type[this.current_map[i][j]].draw(ctx, i, j, distance_to_player)
+       }
     }
 
     
 	
     var position = this.getEndPoint()
-    color = 'purple' 
-    ctx.beginPath()
-    ctx.fillStyle  = color
-    ctx.arc( position.x, position.y + distance_to_player, 10, 0, (Math.PI/180)*360, false)
-    ctx.fill()
-    ctx.closePath()
+    endLevelPointAnimation(ctx, position, distance_to_player)
+    // color = 'purple' 
+    // ctx.beginPath()
+    // ctx.fillStyle  = color
+    // ctx.arc( position.x, position.y + distance_to_player, 10, 0, Math.PI*180, false)
+    // ctx.fill()
+    // ctx.closePath()
 }
 
 Map.prototype.isWalkable = function(y, x){

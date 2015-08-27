@@ -5,5 +5,6 @@
   var water = new Tile(false, 'blue', tile_size, false)
   var fire = new Tile(true, 'red', tile_size, true, water)
   water.reverse = fire
+  fire.drawMe = fireAnimation
   var special = new Tile(false, 'black', tile_size, false)
   var all_tiles = {'g': ground, 'w':water, 'p':path, 'f':fire, 'r':rock, 's':special}

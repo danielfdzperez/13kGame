@@ -69,11 +69,24 @@
    [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
  ]
 
-  var maps = [map1, map2, map3, map4, map5, map6]
+ var test_map = [ 
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'w', 'f', 'w', 'f', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'g', 'g', 'g', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'p', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+ ]
+
+  var maps = [test_map, map1, map2, map3, map4, map5, map6]
 
   var map_conf = [
                   
-                 
+                  MapConf(new Point(1,8), new Point(1,1),true, true, false, ['s']),
                   MapConf(new Point(1,1), new Point(8,1),false, true, false, ['s']),
                   MapConf(new Point(1,1), new Point(1,4),true, false, false),
                   MapConf(new Point(1,1), new Point(8,6),true, true, true),
@@ -83,7 +96,7 @@
                   ]
   var enemy = [
                 [enemyConf(new Point(4, 3), 2)],
-                [],[/*enemyConf(new Point(4, 2), 2)*/],
+                [enemyConf(new Point(4, 3), 2)],[],[],
                 [enemyConf(new Point(5, 1), 2)],
                 [enemyConf(new Point(4, 6), 2)],
                 [enemyConf(new Point(4, 15), 2)]

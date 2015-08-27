@@ -9,7 +9,7 @@ function Tile(walkable, color, size, lethal, reverse){
 
 Tile.prototype.draw = function(ctx, y, x, distance){
 	if(!this.is_reversed)
-		this.drawMe(ctx, y, x, distance)
+		this.drawMe(ctx, y, x, distance, this.size)
 	else
 		this.drawReverse(ctx, y, x, distance)
 }
@@ -24,7 +24,7 @@ Tile.prototype.drawMe = function(ctx, y, x, distance){
 }
 
 Tile.prototype.drawReverse = function(ctx, y, x, distance){
-	this.reverse.drawMe(ctx,y,x, distance)
+	this.reverse.drawMe(ctx,y,x, distance, this.size)
 }
 
 Tile.prototype.isWalkable = function(){
