@@ -7,6 +7,8 @@ function Chrono(){
 
 Chrono.prototype.start = function(){
 	this.start_time = new Date().getTime()
+	this.min        = 0
+	this.seconds    = 0
 }
 
 Chrono.prototype.step = function(){

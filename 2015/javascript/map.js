@@ -32,6 +32,10 @@ Map.prototype.length = function(){
 	return this.current_map.length
 }
 
+Map.prototype.width = function(){
+	return this.current_map[0].length
+}
+
 Map.prototype.changeCurrentMap = function(n){
 	if((n < this.map.length) || ((this.n_current_map + 1) < this.map.length)){
 	   this.restart()

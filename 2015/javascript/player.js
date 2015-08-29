@@ -16,6 +16,7 @@ function Player(position, world){
 	this.move_left    = false
 	this.jump         = false
 	this.is_alive     = false
+	this.total_deaths   = 0
 
 	this.reverse_map_pressed   = false
 	this.reverse_tiles_pressed = false
@@ -196,6 +197,7 @@ Player.prototype.reverseControls = function(){
 
 Player.prototype.die = function(){
 	this.is_alive = false
+	this.total_deaths ++
 	sound.play('damage')
 }
 

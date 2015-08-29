@@ -1,27 +1,39 @@
-    var map2 = [ 
-       ['r','r','r','r','r','r','r','r','r','r'],
-       ['r','p','p','p','p','p','p','p','p','r'],
-       ['r','w','w','w','f','f','w','w','g','r'],
-       ['r','r','r','r','r','r','r','r','g','r'],
-       ['r','g','p','p','p','p','p','p','p','r'],
-       ['r','p','f','f','f','w','w','w','r','r'],
-       ['r','r','r','r','r','r','r','r','r','r'] ]
-  var map1 = [
-       ['r','r','r','r','r','r','r','r','r','r'],
-       ['r','p','r','p','p','r','p','p','p','r'],
-       ['r','s','s','r','r','r','p','p','r','r'],
-       ['r','p','p','p','p','p','p','r','p','r'],
-       ['r','r','r','r','r','r','r','r','r','r']
+
+  var map1 =
+  [[ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'r', 'p', 'p', 'r', 'p', 'p', 'p', 's', 'r', 'r'],
+   [ 'r', 'r', 's', 's', 'r', 'r', 'r', 'p', 'p', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'p', 's', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']]
+  var map2 =
+   [ [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+     [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+     [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r'],
+     [ 'r', 'r', 'w', 'w', 'w', 'f', 'f', 'w', 'w', 'g', 'r', 'r', 'r'],
+     [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'g', 'r', 'r', 'r'],
+     [ 'r', 'r', 'g', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r'],
+     [ 'r', 'r', 'p', 'f', 'f', 'f', 'w', 'w', 'w', 'r', 'r', 'r', 'r'],
+     [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+     [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+     [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+   ]
+  var map3 =[
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'g', 'p', 'p', 'r', 'r', 'r'],
+   [ 'r', 'r', 'g', 'w', 'g', 'g', 'g', 'g', 'g', 'g', 'r', 'r', 'r'],
+   [ 'r', 'r', 'g', 'g', 'g', 'g', 'g', 'g', 'p', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'w', 'w', 'w', 'w', 'w', 'w', 'p', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'w', 'w', 'w', 'w', 'f', 'f', 'f', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
   ]
-  var map3 = [
-       ['r','r','r','r','r','r','r','r','r','r'],
-       ['r','p','g','g','g','g','g','g','g','r'],
-       ['r','p','p','p','p','p','g','p','p','r'],
-       ['r','g','w','g','g','g','g','g','g','r'],
-       ['r','g','g','g','g','g','g','p','r','r'],
-       ['r','w','w','w','w','w','w','p','r','r'],
-       ['r','p','p','p','p','p','p','p','p','r'],
-       ['r','r','w','w','w','w','f','f','f','r'] ]
   var map4 = [ 
        ['r','r','r','r','r','r','r','r','r','r'],
        ['r','p','p','p','g','p','p','p','p','r'],
@@ -69,7 +81,7 @@
    [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
  ]
 
- var test_map = [ 
+ var map7 = [ 
    [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
    [ 'r', 'p', 'p', 'p', 'w', 'f', 'w', 'f', 'f', 'w', 'f', 'r', 'r'],
    [ 'r', 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
@@ -81,24 +93,58 @@
    [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'p', 'r'],
    [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
  ]
+ var map8 =
+ [ 
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'r', 'r', 'r', 'p', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'g', 'p', 'r', 'p', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'f', 'w', 'p', 'r', 'p', 'g', 'p', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'p', 'r', 'g', 'r', 'f', 'w', 'p', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'w', 'f', 'w', 'w', 'p', 'p', 'p', 'r', 'r'],
+   [ 'r', 'r', 'p', 'g', 'p', 'g', 'p', 'p', 'r', 'r', 'g', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'g', 'w', 'f', 'p', 'p', 'p', 'p', 'r', 'r'],
+   [ 'r', 'r', 'p', 'w', 'w', 'r', 'r', 'r', 'r', 'r', 'g', 'r', 'r'],
+   [ 'r', 'r', 'p', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'w', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'p', 'r', 'p', 'r'],
+   [ 'r', 'r', 'p', 'g', 'p', 'g', 'p', 'g', 'p', 'p', 'r', 'p', 'r'],
+   [ 'r', 'r', 'g', 'w', 'w', 'w', 'w', 'w', 'w', 'g', 'w', 'p', 'r'],
+   [ 'r', 'r', 'g', 'g', 'w', 'r', 'r', 'r', 'w', 'g', 'w', 'p', 'r'],
+   [ 'r', 'p', 'r', 'g', 'g', 'w', 'w', 'w', 'g', 'g', 'w', 'p', 'r'],
+   [ 'r', 'p', 'p', 'r', 'g', 'g', 'g', 'g', 'g', 'w', 'p', 'g', 'r'],
+   [ 'r', 'r', 'p', 'p', 'r', 'r', 'p', 'r', 'w', 'r', 'r', 'p', 'r'],
+   [ 'r', 'r', 'g', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'g', 'r'],
+   [ 'r', 'r', 'g', 'r', 'r', 'r', 'r', 'p', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'g', 'r', 'r', 'r', 'r', 'p', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'g', 'r', 'r', 'r', 'r', 'p', 'p', 'p', 'p', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'r', 'r', 'r', 'r', 'r', 'p', 'w', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'p', 'p', 'p', 'g', 'p', 'r', 'r'],
+   [ 'r', 'r', 'r', 'p', 'p', 'p', 'p', 'r', 'w', 'g', 'w', 'r', 'r'],
+   [ 'r', 'r', 'r', 'p', 'f', 'w', 'f', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'p', 'g', 'p', 'p', 'g', 'p', 'g', 'p', 'r', 'r'],
+   [ 'r', 'r', 'r', 'w', 'r', 'w', 'f', 'w', 'w', 'w', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+ ]
 
-  var maps = [test_map, map1, map2, map3, map4, map5, map6]
+  var maps = [map1, map2, map3, map4, map5, map6, map7, map8]
 
   var map_conf = [
-                  
-                  MapConf(new Point(1,8), new Point(1,1),true, true, false, ['s']),
-                  MapConf(new Point(1,1), new Point(8,1),false, true, false, ['s']),
-                  MapConf(new Point(1,1), new Point(1,4),true, false, false),
-                  MapConf(new Point(1,1), new Point(8,6),true, true, true),
+                  MapConf(new Point(2,3), new Point(9,3),false, true, false, ['s']),
+                  MapConf(new Point(2,2), new Point(2,5),true, false, false),
+                  MapConf(new Point(2,1), new Point(9,6),true, true, true),
                   MapConf(new Point(1,1), new Point(1,9),true, true, true),
                   MapConf(new Point(8,8), new Point(8,1),true, true, true, ['s']), 
-                  MapConf(new Point(8,17), new Point(1,1),true, true, true, ['s'])
+                  MapConf(new Point(8,17), new Point(1,1),true, true, true, ['s']),
+                  MapConf(new Point(1,8), new Point(1,1),true, true, false, ['s']),
+                  MapConf(new Point(1,1), new Point(10,27),true, false, true)
                   ]
   var enemy = [
-                [enemyConf(new Point(4, 3), 2)],
-                [enemyConf(new Point(4, 3), 2)],[],[],
+                [enemyConf(new Point(4, 5), 2)],[],[],
                 [enemyConf(new Point(5, 1), 2)],
                 [enemyConf(new Point(4, 6), 2)],
-                [enemyConf(new Point(4, 15), 2)]
+                [enemyConf(new Point(4, 15), 2)],
+                [enemyConf(new Point(4, 3), 2)],
+                [enemyConf(new Point(2, 11), 2), enemyConf(new Point(8, 22), 4), enemyConf(new Point(1, 23), 2)]
               ]
                   

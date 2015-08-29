@@ -8,6 +8,7 @@ function World(canvas, map, conf_map, enemy, type_tiles, tile_size){
 	this.enemy       = null
 	this.delta       = new FrameRateCounter(60)
 	this.event       = new Events()
+	this.chrono      = new Chrono()
 
 	this.player_die_animation = new ParticleSystem()
 	this.enemy_die_animation  = []
@@ -26,6 +27,7 @@ World.prototype.newLevel = function(lvl){
 	this.restartPlayerPosition()
 	this.player.orderControls()
 	this.enemy = this.map.current_enemy
+	this.chrono.start()
 }
 
 World.prototype.restartPlayerPosition = function(){
@@ -33,19 +35,29 @@ World.prototype.restartPlayerPosition = function(){
 	 this.player.restart(position)
 }
 
-World.prototype.restarLevel = function(){
+World.prototype.restartLevel = function(){
 	this.map.restart()
 	this.restartPlayerPosition()
+	sound.play('revive')
 }
 
 World.prototype.loop = function(){
+    var start_time = new Date()
+
 	this.delta.count_frames()
+	this.chrono.step() //Update the chorono
     var delta_time = this.delta.step
+
 
 	this.update(delta_time)
 	this.draw()
+
+	var end_time = new Date()
+	var delay = (1000/60) - (end_time.getTime() - start_time.getTime())
+	if(delay < 10)
+		delay = 10
 	var that = this
-	setTimeout(function(){that.loop()},10)
+	setTimeout(function(){that.loop()},delay)
 }
 
 World.prototype.draw = function(){
@@ -61,7 +73,7 @@ World.prototype.draw = function(){
     	    fix_y = tile_player_position.y + 1 + this.map.halfVisibility() - this.map.length()
 
     var difference_to_player = null
-    var dy = fix_y > 0 ? fix_y - 1 : fix_y 
+    var dy = fix_y > 0 ? fix_y - 1 : fix_y
     
     if(fix_y != 0)
        difference_to_player = ((this.map.halfVisibility() - tile_player_position.y) + dy)*50
@@ -78,6 +90,10 @@ World.prototype.draw = function(){
 		this.enemy_die_animation[i].draw(this.ctx, difference_to_player)
 
 	this.player_die_animation.draw(this.ctx, difference_to_player)
+
+	drawWord(this.ctx, "Deaths: " + this.player.total_deaths.toString(), standard_size, new Point(0,0))
+	var x = (this.map.width()*this.tile_size)-75
+	drawWord(this.ctx, this.chrono.toString(), standard_size, new Point(x,0))
 }
 
 World.prototype.update = function(delta_time){
@@ -85,7 +101,7 @@ World.prototype.update = function(delta_time){
 	if(!this.player_die_animation.end){
 		this.player_die_animation.updatePhysics(1)
 		if(this.player_die_animation.end)
-			this.restarLevel()
+			this.restartLevel()
 		return
 	}
 

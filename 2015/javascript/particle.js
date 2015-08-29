@@ -10,9 +10,11 @@ function Particle(position, radius, life, speed, angle, color){
 var N = 200
 ParticleSystem.prototype = []
 function ParticleSystem(position, color, size){
-	this.end = false
-	if(position)
+	this.end = true
+	if(position){
 	   this.fill(position, color, size)
+       this.end = false
+    }
 }
 
 ParticleSystem.prototype.fill = function(position, color, size){

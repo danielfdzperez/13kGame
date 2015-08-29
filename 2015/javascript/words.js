@@ -271,6 +271,8 @@ var letters = letters = {
     ]
 }
 
+var standard_size = 4
+
 function drawWord(ctx, string, size, start_position) {
 
     var needed = []
