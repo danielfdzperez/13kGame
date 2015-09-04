@@ -9,6 +9,8 @@ function World(canvas, map, conf_map, enemy, type_tiles, tile_size){
 	this.delta       = new FrameRateCounter(60)
 	this.event       = new Events()
 	this.chrono      = new Chrono()
+	this.running     = false
+	this.time_out    = null
 
 	this.player_die_animation = new ParticleSystem()
 	this.enemy_die_animation  = []
@@ -17,6 +19,7 @@ function World(canvas, map, conf_map, enemy, type_tiles, tile_size){
 World.prototype.start = function(){
 	this.event.enableInputs()
 	this.newLevel(0)
+	this.running = true
 	this.loop()
 }
 
@@ -57,7 +60,7 @@ World.prototype.loop = function(){
 	if(delay < 10)
 		delay = 10
 	var that = this
-	setTimeout(function(){that.loop()},delay)
+	this.time_out = setTimeout(function(){that.loop()},delay)
 }
 
 World.prototype.draw = function(){
