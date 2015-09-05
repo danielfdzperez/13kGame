@@ -13,7 +13,7 @@ Events.prototype.enableInputs = function(){
 	    that.keys_down[e.keyCode] = true 
 	    that.last_key = e.keyCode
 	    delete that.keys_up[e.keyCode] 
-	    }, false) 
+	    }, false)
 
     addEventListener("keyup", this.key_up = function (e) {
 	    that.keys_up[e.keyCode] = true 
@@ -25,6 +25,8 @@ Events.prototype.enableInputs = function(){
 Events.prototype.removeInputs = function(){
     removeEventListener("keydown", this.key_down)
     removeEventListener("keyup", this.key_up)
+    this.keys_up = []
+    this.keys_down = []
 }
 
 Events.prototype.addKeyDown = function(e){
