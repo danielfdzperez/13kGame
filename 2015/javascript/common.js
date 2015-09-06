@@ -1,3 +1,4 @@
+var keys = {"up": 38, "right": 39, "left": 37, "reverse_map":82, "reverse_tiles":69}
 function Point(x, y){
 	this.x = x
 	this.y = y

@@ -3,7 +3,6 @@ Player.prototype.constructor = Player
 /*
    position - Point : Is the player position
 */
-var keys = {"up": 38, "right": 39, "left": 37, "reverse_map":82, "reverse_tiles":69}
 function Player(position, world){
 	Character.call(this, position, 5, world)
 	this.in_the_air = false

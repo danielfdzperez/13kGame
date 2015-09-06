@@ -1,17 +1,59 @@
-function Menu(buttons, title, events){
+function Menu(buttons, title, events, draw_type){
     this.button           = buttons
     this.curren_buton     = 0
+    this.button[this.curren_buton].activated = true
+
     this.title            = title
     this.background_color = /*background_color*/null
     this.events           = events
+    this.draw_type        = draw_type
 }
 
 Menu.prototype.draw = function(ctx, width, height){
     ctx.fillStyle = "MediumBlue"
     ctx.fillRect(0, 0, width, height)
-   
+
+    title_size = 10
+    var center_x = 0 + ( (width/2) - ((this.title.length*title_size)/2)*standard_size )
+    var difference_y = (height/2)/2
+    drawWord(ctx, this.title, title_size, new Point(center_x , 10))
+
+     
+    this["drawButtons" + this.draw_type](ctx, width, height, difference_y) 
+}
+
+Menu.prototype.drawButtonsCenter = function(ctx, width, height, start_point){
     for(var i in this.button)
-       this.button[i].draw(ctx, new Point(100, i*100))
+       this.button[i].draw(ctx, new Point(width/2 - this.button[i].width/2, i*100+start_point))
+}
+
+Menu.prototype.drawButtonsList = function(ctx, width, height, start_point){
+    var col = 0
+    var row = 0
+    var margin = 5
+    for(var i in this.button){
+       var button_width = this.button[i].width + margin
+       var button_height = this.button[i].height + margin
+       this.button[i].draw(ctx, new Point( (button_width * col + margin), row*button_height + start_point ))
+
+       if((++col * button_width + margin) + button_width > width ){
+	   col = 0
+	   row ++
+       }
+    }
+}
+
+Menu.prototype.nexButton = function(){
+    this.button[this.curren_buton].activated = false
+    this.curren_buton = ++this.curren_buton % this.button.length
+    this.button[this.curren_buton].activated = true
+}
+
+Menu.prototype.previousButton = function(){
+    this.button[this.curren_buton].activated = false
+    if(--this.curren_buton < 0)
+	this.curren_buton = this.button.length-1
+    this.button[this.curren_buton].activated = true
 }
 
 MenuManager.prototype = []

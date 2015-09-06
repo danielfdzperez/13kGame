@@ -276,7 +276,12 @@ var standard_size = 4
 function drawWord(ctx, string, size, start_position) {
 
     var needed = []
+    try{
     string = string.toUpperCase() // because I only did uppercase letters
+    }
+    catch(e){
+	console.log("Broke")
+    }
     for (var i = 0; i < string.length; i++) {
         var letter = letters[string.charAt(i)]
         if (letter) { // because there's letters I didn't do
