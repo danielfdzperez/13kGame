@@ -43,6 +43,9 @@ Menu.prototype.drawButtonsList = function(ctx, width, height, start_point){
     }
 }
 
+Menu.prototype.drawButtonsEdited = function(ctx, width, height, start_point){
+}
+
 Menu.prototype.nexButton = function(){
     this.button[this.curren_buton].activated = false
     this.curren_buton = ++this.curren_buton % this.button.length

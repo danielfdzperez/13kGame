@@ -32,13 +32,13 @@ World.prototype.stop = function(){
 }
 
 World.prototype.newLevel = function(lvl){
-    //if(!start)
     this.map.changeCurrentMap(lvl)
-	this.player.stop()
-	this.restartPlayerPosition()
-	this.player.orderControls()
-	this.enemy = this.map.current_enemy
-	this.chrono.start()
+    setMaxLevel(this.map.n_current_map)
+    this.player.stop()
+    this.restartPlayerPosition()
+    this.player.orderControls()
+    this.enemy = this.map.current_enemy
+    this.chrono.start()
 }
 
 World.prototype.restartPlayerPosition = function(){

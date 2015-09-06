@@ -1,4 +1,19 @@
-var keys = {"up": 38, "right": 39, "left": 37, "reverse_map":82, "reverse_tiles":69}
+var keys_a = {"up": 38, "right": 39, "left": 37, "reverse_map":82, "reverse_tiles":69}
+var keys_b = {"up": 87, "right": 68, "left": 65, "reverse_map":80, "reverse_tiles":79}
+var keys = keys_a
+function changeKeys(key_type){
+    keys = eval("keys_" + key_type)
+}
+
+function keyToString(key){
+    var non_string_key = {38:"row up", 37:"row left", 39:"row right", 27:"scape"}
+    if(key in non_string_key)
+	return non_string_key[key]
+    else
+	return String.fromCharCode(key)
+}
+
+
 function Point(x, y){
 	this.x = x
 	this.y = y
@@ -73,4 +88,17 @@ function isInArray(array, x){
 function enemyConf(pos, speed_x){
     var obj = {"pos":new Point(pos.x, pos.y), "speed": speed_x}
     return obj
+}
+
+
+var max_level = null
+function loadMaxLevel(){
+    if(localStorage["Reverse World"] != undefined)
+	max_level = localStorage["Reverse World"]
+    else
+	localStorage["Reverse World"] = 0
+}
+function setMaxLevel(lvl){
+    if(lvl > max_level) 
+	localStorage["Reverse World"] = lvl
 }
