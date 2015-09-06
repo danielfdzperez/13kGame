@@ -1,3 +1,5 @@
+//(function(){
+window.addEventListener("load", start, false)
 var menu = null
 var world = null
 function start(){
@@ -87,3 +89,4 @@ function createMenu(){
   menus.push(control_menu)
   menu.fill(menus)
 }
+//})()
