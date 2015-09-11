@@ -23,6 +23,11 @@ Point.prototype.equals = function(position){
    return ((this.x == position.x) && (this.y == position.y))
 }
 
+Point.prototype.random = function(x_limit, y_limit){
+    this.x = Math.random() * x_limit
+    this.y = Math.random() * y_limit
+}
+
 function updateMRU(pos, speed, t){
 	return ( pos + (speed * t) )
 }

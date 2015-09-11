@@ -59,7 +59,6 @@ Menu.prototype.previousButton = function(){
     this.button[this.curren_buton].activated = true
 }
 
-MenuManager.prototype = []
 function MenuManager(canvas, menu){
     this.menu         = []
     this.event        = new Events()

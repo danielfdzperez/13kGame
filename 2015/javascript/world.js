@@ -162,16 +162,16 @@ World.prototype.checkMovement = function(position){
 }
 
 World.prototype.chekPlayerAlive = function(){
-    var position = this.player.getSquarePoints(this.player.position.x, this.player.position.y, this.tile_size)
-	var obj = {}
+    var position = this.player.getSquarePoints(this.player.position.x, this.player.position.y, this.tile_size, 1)
+    var obj = {}
     obj["up right"]   = this.map.isLethal(position.up,   position.right)  
-	obj["up left"]    = this.map.isLethal(position.up,   position.left)
-	obj["down right"] = this.map.isLethal(position.down, position.right)  
-	obj["down left"]  = this.map.isLethal(position.down, position.left)  
-	for(var i in obj)
-	    if(obj[i])
-		return false
-		    return true
+    obj["up left"]    = this.map.isLethal(position.up,   position.left)
+    obj["down right"] = this.map.isLethal(position.down, position.right)  
+    obj["down left"]  = this.map.isLethal(position.down, position.left)  
+    for(var i in obj)
+        if(obj[i])
+    	    return false
+    return true
 }
 
 World.prototype.checkPlayerInsideWalkableTile = function(){
