@@ -14,7 +14,7 @@
    [ [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
      [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
      [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r'],
-     [ 'r', 'r', 'w', 'w', 'w', 'f', 'f', 'w', 'w', 'g', 'r', 'r', 'r'],
+     [ 'r', 'r', 'r', 'w', 'w', 'f', 'f', 'w', 'w', 'g', 'r', 'r', 'r'],
      [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'g', 'r', 'r', 'r'],
      [ 'r', 'r', 'g', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r', 'r'],
      [ 'r', 'r', 'p', 'f', 'f', 'f', 'w', 'w', 'w', 'r', 'r', 'r', 'r'],
@@ -127,7 +127,102 @@
    [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
  ]
 
-  var maps = [map1, map2, map3, map4, map5, map6, map7, map8]
+ var map9 =
+[ 
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'r'],
+   [ 'r', 'r', 'f', 'f', 'f', 'r', 'r', 'p', 'g', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'w', 'p', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'g', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'r', 'p', 'w', 'r'],
+   [ 'r', 'w', 'w', 'f', 'p', 'p', 'r', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'g', 'r', 'w', 'g', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'f', 'r', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'w', 'p', 'r', 'g', 'f', 'r'],
+   [ 'r', 'p', 'p', 'f', 'p', 'p', 'r', 'p', 'p', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'r', 'g', 'g', 'r'],
+   [ 'r', 'p', 'p', 'f', 'p', 'p', 'r', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'g', 'r', 'w', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'f', 'r', 'p', 'g', 'r'],
+   [ 'r', 'p', 'p', 'p', 'w', 'p', 'r', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'p', 'p', 'r', 'p', 'p', 'r'],
+   [ 'r', 'p', 'g', 'g', 'g', 'p', 'r', 'w', 'p', 'r'],
+   [ 'r', 'g', 'p', 'p', 'p', 'p', 'r', 'g', 'p', 'r'],
+   [ 'r', 'w', 'f', 'g', 'f', 'p', 'r', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'g', 'r', 'p', 'g', 'r'],
+   [ 'r', 'p', 'g', 'f', 'f', 'r', 'r', 'w', 'p', 'r'],
+   [ 'r', 'f', 'p', 'r', 'r', 'r', 'r', 'p', 'p', 'r'],
+   [ 'r', 'p', 'g', 'p', 'p', 'p', 'r', 'p', 'g', 'r'],
+   [ 'r', 'r', 'r', 'w', 'f', 'p', 'r', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'g', 'r', 'g', 'p', 'r'],
+   [ 'r', 'p', 'r', 'f', 'r', 'r', 'r', 'w', 'p', 'r'],
+   [ 'r', 'g', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+ ]
+ var map10 =
+ [ 
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 's', 's', 's', 'r', 'r', 'p', 'p', 'p', 'r'],
+   [ 'r', 'g', 'g', 'g', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'r', 'r', 'p', 'p', 'p', 'r'],
+   [ 'r', 'f', 'f', 'f', 'r', 'r', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'g', 'r', 'r', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'p', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'g', 'r', 'p', 'r', 'r', 'p', 'p', 'p', 'r'],
+   [ 'r', 'p', 'r', 'r', 'r', 'r', 'r', 'r', 'w', 'r'],
+   [ 'r', 'p', 'r', 'g', 'r', 'r', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'p', 'p', 'p', 'w', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+ ]
+ var map11 =
+ [ 
+   [ 'r', 'r', 'f', 'f', 'w', 'f', 'w', 'r', 'r', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'f', 'w', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'w', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'f', 'w', 'f', 'w', 'f', 'p', 'p', 'r'],
+   [ 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'w', 'r'],
+   [ 'r', 'p', 'p', 'f', 'w', 'f', 'w', 'f', 'r', 'r'],
+   [ 'r', 'r', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r'],
+   [ 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+ ]
+
+  var maps = [map1, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11]
 
   var map_conf = [
                   MapConf(new Point(2,3), new Point(9,3),false, true, false, ['s']),
@@ -137,14 +232,39 @@
                   MapConf(new Point(8,8), new Point(8,1),true, true, true, ['s']), 
                   MapConf(new Point(8,17), new Point(1,1),true, true, true, ['s']),
                   MapConf(new Point(1,8), new Point(1,1),true, true, false, ['s']),
-                  MapConf(new Point(1,1), new Point(10,27),true, false, true)
+                  MapConf(new Point(1,1), new Point(10,27),true, false, true),
+                  MapConf(new Point(1,1), new Point(1,5),true, false, true),
+                  MapConf(new Point(1,1), new Point(4,12),true, true, true, ['s']),
+                  MapConf(new Point(8,37), new Point(1,1),true, true, true, ['s'])
                   ]
+
   var enemy = [
                 [enemyConf(new Point(4, 5), 2)],[],[],
-                [enemyConf(new Point(5, 1), 2)],
+                [],
                 [enemyConf(new Point(4, 6), 2)],
                 [enemyConf(new Point(4, 15), 2)],
                 [enemyConf(new Point(4, 3), 2)],
-                [enemyConf(new Point(2, 11), 2), enemyConf(new Point(8, 22), 4), enemyConf(new Point(1, 23), 2)]
+                [enemyConf(new Point(2, 11), 2), enemyConf(new Point(8, 22), 4), enemyConf(new Point(1, 23), 2)],
+                [],[enemyConf(new Point(4, 5), -10)],
+                [enemyConf(new Point(5, 37), -10),
+                 enemyConf(new Point(6, 35), -10), enemyConf(new Point(6, 35), 10),
+                 enemyConf(new Point(5, 33), -10), enemyConf(new Point(5, 33), 10),
+                 enemyConf(new Point(6, 31), -10), enemyConf(new Point(6, 31), 10),
+                 enemyConf(new Point(5, 29), -10), enemyConf(new Point(5, 29), 10),
+                 enemyConf(new Point(6, 27), -10), enemyConf(new Point(6, 27), 10),
+                 enemyConf(new Point(5, 25), -10), enemyConf(new Point(5, 25), 10),
+                 enemyConf(new Point(6, 23), -10), enemyConf(new Point(6, 23), 10),
+                 enemyConf(new Point(5, 21), -10), enemyConf(new Point(5, 21), 10),
+                 enemyConf(new Point(6, 19), -10), enemyConf(new Point(6, 19), 10), enemyConf(new Point(6, 19), 3),
+                 enemyConf(new Point(5, 17), -10), enemyConf(new Point(5, 17), 10), enemyConf(new Point(5, 17), -6),
+                 enemyConf(new Point(6, 15), -10), enemyConf(new Point(6, 15), 10),
+                 enemyConf(new Point(5, 13), -10), enemyConf(new Point(5, 13), 10), enemyConf(new Point(5, 13), -7),
+                 enemyConf(new Point(6, 11), -10), enemyConf(new Point(6, 11), 10),
+                 enemyConf(new Point(5, 9), -10), enemyConf(new Point(5, 9), 10),
+                 enemyConf(new Point(6, 7), -10), enemyConf(new Point(6, 7), 10), enemyConf(new Point(6, 7), 5),
+                 enemyConf(new Point(5, 5), -10), enemyConf(new Point(5, 5), 10),
+                 enemyConf(new Point(6, 3), -10), enemyConf(new Point(6, 3), 10), enemyConf(new Point(6, 3), -5),
+                 enemyConf(new Point(5, 1), -10), enemyConf(new Point(5, 1), 10), enemyConf(new Point(5, 1), 7),
+                 enemyConf(new Point(5, 1), -7)]
               ]
                   

@@ -49,7 +49,7 @@ function createMenu(){
   var level_button = []
   for(var i = 0; i < maps.length; i++)
       if(i <= max_level)
-         level_button.push(new Button(i.toString(), 100, 80, button_action(i)))
+         level_button.push(new Button((i+1).toString(), 100, 80, button_action(i)))
       else
          level_button.push(new Button("Loked", 100, 80, function(){}))
 

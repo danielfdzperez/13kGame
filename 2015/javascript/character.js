@@ -7,10 +7,11 @@ function Character(position, dimensions, world){
 
 Character.prototype.getSquarePoints = function(x, y, tile_size, extra){
 	var obj = {}
-	obj["down"]  = Math.floor((y+this.dimensions-1 + (extra||0))/tile_size)
-	obj["up"]    = Math.floor((y-this.dimensions)/tile_size)
-	obj["left"]  = Math.floor((x-this.dimensions)/tile_size)
-	obj["right"] = Math.floor((x+this.dimensions-1 + (extra||0))/tile_size)
+	var extra = extra || 0
+	obj["down"]  = Math.floor((y+this.dimensions-1 + extra)/tile_size)
+	obj["up"]    = Math.floor((y-this.dimensions - extra)/tile_size)
+	obj["left"]  = Math.floor((x-this.dimensions - extra)/tile_size)
+	obj["right"] = Math.floor((x+this.dimensions-1 + extra)/tile_size)
 	return obj
 }
 
