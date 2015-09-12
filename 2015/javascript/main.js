@@ -3,15 +3,14 @@ window.addEventListener("load", start, false)
 var menu = null
 var world = null
 function start(){
-  loadMaxLevel()
+  world = new World("canvas", maps, map_conf, enemy, all_tiles, tile_size, function(){createMenu()})
   createMenu()
-  world = new World("canvas", maps, map_conf, enemy, all_tiles, tile_size, function(){menu.start()})
-  menu.start()
 }
 
 
 
 function createMenu(){
+  loadMaxLevel()
   var key= {"enter":13, "up": 38, "down":40, "right":39, "left":37, "scape":27}
   menu = new MenuManager("canvas")
 
@@ -88,5 +87,6 @@ function createMenu(){
   menus.push(level_menu)
   menus.push(control_menu)
   menu.fill(menus)
+  menu.start()
 }
 //})()

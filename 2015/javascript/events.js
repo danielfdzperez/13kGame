@@ -2,26 +2,28 @@ function Events(){
     this.keys_down = {}
     this.keys_up = {}
     this.last_key = null
-    this.key_down = null
-    this.key_up   = null
+    this.key_down_listener = null
+    this.key_up_listener   = null
     this.key_used = []
 }
 
 Events.prototype.enableInputs = function(){
     var that = this
-    document.addEventListener("keydown", this.key_down = function (e) {
-        console.log(e.keyCode)
+    this.key_down_listener = function (e) {
+            console.log(e.keyCode)
 	    that.keys_down[e.keyCode] = true 
 	    that.last_key = e.keyCode
 	    delete that.keys_up[e.keyCode] 
-	    }, false)
+	    }
+    addEventListener("keydown", this.key_down_listener, false)
 
-    addEventListener("keyup", this.key_up = function (e) {
+    this.keys_up_listener =  function (e) {
 	    that.keys_up[e.keyCode] = true 
 	    that.last_key = e.keyCode
 	    delete that.keys_down[e.keyCode] 
 	    delete that.key_used[e.keyCode]
-	    }, false)
+	    }
+    addEventListener("keyup", this.keys_up_listener, false)
 }
 
 Events.prototype.isNotUsed = function(x){
@@ -34,8 +36,8 @@ Events.prototype.isNotUsed = function(x){
 }
 
 Events.prototype.removeInputs = function(){
-    removeEventListener("keydown", this.key_down)
-    removeEventListener("keyup", this.key_up)
+    removeEventListener("keydown", this.key_down_listener, false)
+    removeEventListener("keyup", this.key_up_listener, false)
     this.keys_up   = []
     this.keys_down = []
     this.key_used  = []

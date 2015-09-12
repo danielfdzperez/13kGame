@@ -19,15 +19,6 @@ function Point(x, y){
 	this.y = y
 }
 
-Point.prototype.equals = function(position){
-   return ((this.x == position.x) && (this.y == position.y))
-}
-
-Point.prototype.random = function(x_limit, y_limit){
-    this.x = Math.random() * x_limit
-    this.y = Math.random() * y_limit
-}
-
 function updateMRU(pos, speed, t){
 	return ( pos + (speed * t) )
 }
@@ -38,23 +29,6 @@ function updateMRUV(pos, speed, t){
 	obj.speed = speed + acc * t 
 	obj.pos = (pos + (speed * t) + ( (1/2) * acc * Math.pow(t, 2)) )
 	return obj
-}
-
-function FrameRateCounter(fps){
-    this.fps = fps || 20
-    this.last_time = new Date().getTime()
-    this.step = 1
-}
-
-FrameRateCounter.prototype.count_frames = function(){
-
-    var date_temp = new Date()
-    /*Se calcula el tiempo*/
-    var time_difference = date_temp.getTime() - this.last_time
-    this.step = (time_difference/1000) * this.fps
-    this.last_time = date_temp.getTime()
-
-    //delete date_temp
 }
 
 function MultidimensionalArray(y){
@@ -95,15 +69,15 @@ function enemyConf(pos, speed_x){
     return obj
 }
 
-
+/*Save and load the max level archieved*/
 var max_level = null
 function loadMaxLevel(){
-    if(localStorage["Reverse World"] != undefined)
-	max_level = localStorage["Reverse World"]
+    if( localStorage["Reverse World Max Level"]!= undefined)
+	max_level = localStorage["Reverse World Max Level"]
     else
-	localStorage["Reverse World"] = 0
+	localStorage["Reverse World Max Level"] = 0
 }
 function setMaxLevel(lvl){
     if(lvl > max_level) 
-	localStorage["Reverse World"] = lvl
+	localStorage["Reverse World Max Level"] = lvl
 }

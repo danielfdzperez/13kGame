@@ -26,6 +26,10 @@ ParticleSystem.prototype.fill = function(position, color, size){
        	         Math.random()*5, Math.floor(Math.random()*360),color))
 }
 
+ParticleSystem.prototype.empty = function(){
+    this.splice(0,this.length)
+}
+
 ParticleSystem.prototype.draw=function(ctx, difference){
 	for(var i=0; i<this.length; i++){
 	    ctx.fillStyle=this[i].color

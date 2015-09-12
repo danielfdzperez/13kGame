@@ -18,6 +18,11 @@ Menu.prototype.draw = function(ctx, width, height){
     var difference_y = (height/2)/2
     drawWord(ctx, this.title, title_size, new Point(center_x , 10))
 
+    var creator = "Created by Daniel Fernandez"
+    drawWord(ctx, creator, 2, new Point(width - (creator.length+1)*8, height-(3*5)))
+    var github = "GitHub danielfdzperez"
+    drawWord(ctx, github, 2, new Point(width - (creator.length+1)*8, height-(10*5)))
+
      
     this["drawButtons" + this.draw_type](ctx, width, height, difference_y) 
 }

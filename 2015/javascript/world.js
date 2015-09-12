@@ -1,4 +1,7 @@
 var SCAPE = 27
+//Cheats
+var Z     = 90  
+var X     = 88
 function World(canvas, map, conf_map, enemy, type_tiles, tile_size, callback){
     this.canvas      = document.getElementById(canvas)
     this.ctx         = this.canvas.getContext('2d')
@@ -7,7 +10,6 @@ function World(canvas, map, conf_map, enemy, type_tiles, tile_size, callback){
     this.map         = new Map(map, conf_map, type_tiles, this.tile_size, enemy, this)
     this.player      = new Player(new Point(0,0), this)
     this.enemy       = null
-    this.delta       = new FrameRateCounter(60)
     this.event       = new Events()
     this.chrono      = new Chrono()
     this.running     = false
@@ -18,21 +20,29 @@ function World(canvas, map, conf_map, enemy, type_tiles, tile_size, callback){
     this.enemy_die_animation  = []
 }
 
+World.prototype.initiateVariables = function(){
+    this.player_die_animation = new ParticleSystem()
+    this.enemy_die_animation  = []
+    this.running             = true
+}
+
 World.prototype.start = function(lvl){
-    this.event.enableInputs()
     this.newLevel(lvl || 0)
-    this.running = true
+    this.event.enableInputs()
+    this.initiateVariables()
     this.loop()
 }
 
 World.prototype.stop = function(){
     this.event.removeInputs()
-	clearTimeout(this.time_out)
-	this.callback()
+    clearTimeout(this.time_out)
+    this.running = false
+    this.callback()
 }
 
 World.prototype.newLevel = function(lvl){
-    this.map.changeCurrentMap(lvl)
+    if(!this.map.changeCurrentMap(lvl))
+	this.stop()
     setMaxLevel(this.map.n_current_map)
     this.player.stop()
     this.restartPlayerPosition()
@@ -56,22 +66,30 @@ World.prototype.loop = function(){
 
     var start_time = new Date()
 
-	this.delta.count_frames()
-	this.chrono.step() //Update the chorono
-	var delta_time = this.delta.step
+    this.chrono.step() //Update the chorono
+    var delta_time = 1
+    
+    
+    this.update(delta_time)
+    this.draw()
+    
+    var end_time = new Date()
+    var delay = (1000/60) - (end_time.getTime() - start_time.getTime())
+    if(delay < 10)
+        delay = 10
+    var that = this
+    if(this.running)
+       this.time_out = setTimeout(function(){that.loop()},delay)
+    this.actions()
+}
 
-
-	this.update(delta_time)
-	this.draw()
-
-	var end_time = new Date()
-	var delay = (1000/60) - (end_time.getTime() - start_time.getTime())
-	if(delay < 10)
-	    delay = 10
-		var that = this
-		this.time_out = setTimeout(function(){that.loop()},delay)
-		if(SCAPE in this.event.keys_down)
-		    this.stop()
+World.prototype.actions = function(){
+    if(SCAPE in this.event.keys_down)
+        this.stop()
+    if(this.event.isNotUsed(Z))
+	this.newLevel()
+    if(this.event.isNotUsed(X))
+	this.player.orderControls()
 }
 
 World.prototype.draw = function(){

@@ -6,7 +6,6 @@ Player.prototype.constructor = Player
 function Player(position, world){
 	Character.call(this, position, 5, world)
 	this.in_the_air = false
-	this.jumping    = false
 
 	this.parkour_right = false
 	this.parkour_left  = false
@@ -21,35 +20,33 @@ function Player(position, world){
 	this.reverse_tiles_pressed = false
 
     var that = this
-    this.action     = {"up": function(){
-    	                        if(that.canJump()){
-		                            that.speed.y = -10
-		                            that.in_the_air = true
-		                            that.jumping    = true
-		                            sound.play('jump')
-		                      }},
-		                "right": function(){that.move_right = true},
-		                "left" : function(){that.move_left = true},
-		                "no_right": function(){
-		                	           that.move_right = false
-		                            },
-		                "no_left": function(){
-		                	           that.move_left = false
-		                            },
-		                "reverse_map": function(){
-		                	                       if(!that.reverse_map_pressed){
-		                	                          that.world.map.reverseMap()
-		                	                          that.reverse_map_pressed = true
-		                	                       }
-		                               },
-		                "no_reverse_map": function(){that.reverse_map_pressed = false},
-		                "reverse_tiles": function(){
-		                	                       if(!that.reverse_tiles_pressed){
-		                	                          that.world.map.reverseTiles()
-		                	                          that.reverse_tiles_pressed = true
-		                	                       }
-		                               },
-		                "no_reverse_tiles": function(){that.reverse_tiles_pressed = false}
+    this.action = {"up": function(){
+                             that.jump = true
+		             console.log("jump")
+                         },
+                   "right": function(){that.move_right = true},
+                   "left" : function(){that.move_left = true},
+                   "no_right": function(){
+                   	           that.move_right = false
+                               },
+                   "no_left": function(){
+                   	           that.move_left = false
+                               },
+                   "no_up": function(){ that.jump = false },
+                   "reverse_map": function(){
+                   	                       if(!that.reverse_map_pressed){
+                   	                          that.world.map.reverseMap()
+                   	                          that.reverse_map_pressed = true
+                   	                       }
+                                  },
+                   "no_reverse_map": function(){that.reverse_map_pressed = false},
+                   "reverse_tiles": function(){
+                   	                       if(!that.reverse_tiles_pressed){
+                   	                          that.world.map.reverseTiles()
+                   	                          that.reverse_tiles_pressed = true
+                   	                       }
+                                  },
+                   "no_reverse_tiles": function(){that.reverse_tiles_pressed = false}
 
 		              }
 	this.keys = {"up": keys.up, "right": keys.right, "left": keys.left, "reverse_map":keys.reverse_map, "reverse_tiles": keys.reverse_tiles}
@@ -98,8 +95,13 @@ Player.prototype.updatePhysics = function(t){
 	   else
 	    	this.position.x = Math.floor((this.position.x-this.dimensions+1)/this.world.tile_size)*this.world.tile_size + this.dimensions
    
+    if(this.jump && this.canJump()){
+        this.speed.y = -10
+        this.in_the_air = true
+        sound.play('jump')
+    }
     /*Comprobar que no esta callendo*/
-    can_move = this.world.checkMovement(this.getSquarePoints(this.position.x, this.position.y, this.world.tile_size))
+    can_move = this.world.checkMovement(this.getSquarePoints(this.position.x, this.position.y, this.world.tile_size, 1))
     if(can_move["down right"] && can_move["down left"])
     	   if(!this.in_the_air)
     	   	  this.in_the_air = true
@@ -146,7 +148,8 @@ Player.prototype.draw = function(ctx, difference){
 
 Player.prototype.stop = function(){
 	this.move_right = false
-	this.move_left = false
+	this.move_left  = false
+	this.jump       = false
 }
 
 Player.prototype.canJump = function(){
@@ -216,6 +219,8 @@ Player.prototype.events = function(event){
     	this.action.no_right()
     if(this.keys.left in event.keys_up)
     	this.action.no_left()
+    if(this.keys.up in event.keys_up)
+    	this.action.no_up()
     if(this.keys.reverse_map in event.keys_up)
     	this.action.no_reverse_map()
     if(this.keys.reverse_tiles in event.keys_up)

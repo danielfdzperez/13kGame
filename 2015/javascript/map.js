@@ -43,7 +43,11 @@ Map.prototype.changeCurrentMap = function(n){
 	   this.createReverseMap()
 	   this.spawnEnemy()
 	   sound.play('lvl')
+	   return true
 	}
+	else
+	    return false
+    
 }
 
 Map.prototype.spawnEnemy = function(){
@@ -158,4 +162,8 @@ Map.prototype.getEndPoint = function(){
 
 Map.prototype.getEndTile = function(){
 	return this.conf[this.n_current_map].end_tile
+}
+
+Map.prototype.endLevel = function(){
+    return this.n_current_map >= this.map.length-1 
 }
