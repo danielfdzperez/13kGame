@@ -13,12 +13,6 @@ function keyToString(key){
 	return String.fromCharCode(key)
 }
 
-
-function Point(x, y){
-	this.x = x
-	this.y = y
-}
-
 function updateMRU(pos, speed, t){
 	return ( pos + (speed * t) )
 }
