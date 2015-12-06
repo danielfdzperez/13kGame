@@ -16,11 +16,9 @@ Character.prototype.getSquarePoints = function(x, y, tile_size, extra){
 }
 
 Character.prototype.collision = function(character){
-    if( (this.position.x + this.dimensions < character.position.x - character.dimensions) ||  
-        (this.position.y + this.dimensions < character.position.y - character.dimensions) ||
-        (this.position.x - this.dimensions > character.position.x + character.dimensions) ||
-        (this.position.y - this.dimensions > character.position.y + character.dimensions) )
-        return false
-    else
-	   return true
+    return !( (this.position.x + this.dimensions < character.position.x - character.dimensions) ||  
+             (this.position.y + this.dimensions < character.position.y - character.dimensions) ||
+             (this.position.x - this.dimensions > character.position.x + character.dimensions) ||
+             (this.position.y - this.dimensions > character.position.y + character.dimensions) 
+           )
 }
