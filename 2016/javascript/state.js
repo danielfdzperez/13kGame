@@ -2,12 +2,11 @@
    parameters are function that change the owner atributes
 */
 
-function State(normal_action, glithed_action){
+function State(being){
     this.current_state         = "normal"
     this.current_glitched_step = 0
     this.max_glitched_step     = 120
-    this.normal_action = normal_action
-    this.glithed_action = glithed_action
+    this.being = being
 }
 
 State.error_probability = 9
@@ -33,11 +32,15 @@ State.prototype.update = function(){
 State.prototype.changeState = function(){
     if(this.current_state == "normal"){
         this.current_state = "glitched"
-        this.glithed_action()
+        this.being.glithedAction()
     }
     else{
         this.current_state = "normal"
         this.current_glitched_step = 0
-        this.normal_action()
+        this.being.normalAction()
     }    
 } 
+
+State.prototype.getState = function(){
+    return this.current_state
+}
