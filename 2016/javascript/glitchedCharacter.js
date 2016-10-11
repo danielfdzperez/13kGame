@@ -7,11 +7,14 @@ function GlitchedCharacter(world, position, sprite, speed, life, damage, defence
     this.damage  = damage
     this.defence = defence
     this.path    = null
-    this.moving  = false
+    this.moving  = fals
 }
 
-//Desetination is a pont
+//Destination is a point
+//TODO be more efficient
 GlitchedGameObject.prototype.findPath = function(destination){
+
+    var that = this
     function Node(parent, position, target){
         this.parent = parent
         var parent_g, parent_position
@@ -28,6 +31,10 @@ GlitchedGameObject.prototype.findPath = function(destination){
         this.g        = parent_g + manhattanDistance(this.position, parent_position) //Estimated cost of this particular route so far
         this.h        = manhattanDistance(position, target.position)                 //Distance from here to the target
         this.f        = this.g + this.h //Estimated cost of entire guessed route to the destination
+
+	Node.prototype.equals = function(node){
+	    return this.position.equals(node.position)
+	}
     }
 
     function manhattanDistance(point, target){	
@@ -35,11 +42,69 @@ GlitchedGameObject.prototype.findPath = function(destination){
 	return abs(point.x - target.x) + abs(point.y - target.y)
     }
 
-    //TODO
-    function getNeighbours(){
+    //Get the walkable tiles are neighbours
+    function getNeighbours(node){
+	var neighbours = []
+
+	// West
+	var w =new Point(node.position.x-1,node.position.y))
+	if(w.x > -1 && that.world.isWalkable(w)) {
+	    neighbours.push(w) 
+	}
+
+	// East
+	var e =new Point(node.position.x+1,node.position.y))
+	if(e.x < that.world.width && that.world.isWalkable(e)){
+	    neighbours.push(e) 
+	}
+
+	// South
+	var s =new Point(node.position.x,node.position.y+1))
+	if(s.y < that.world.height && that.world.isWalkable(s)){
+	    neighbours.push(s) 
+	}
+
+	// North
+	var n =new Point(node.position.x,node.position.y-1))
+	if(n.y > -1 && that.world.isWalkable(n)){
+	    neighbours.push(m) 
+	}
+	return neighbours
     }    
+
+    function calculatePath(){
+	var close = []
+	var open = []
+	var find = false
+	var start = new Node(null, that.position, destination)
+	var end   = new Node(null, destination, new Point(0,0))
+	open.push(start)
+	var result = []
+	while(!find && open.length != 0){
+	    current_node = open.sort(function(node1,node2){return node1.f > node2.f}).splice(0,1)//Get the letter f
+	    close.push(current_node)
+	    if(current_node.equals(end)){
+		do{
+		    result.push(current_node)
+		    current_node = current_node.parent
+		}while(current_node != null) 
+		result.reverse()
+		find = true
+	    }
+	    else{//Be more efficient
+		neighbours = getNeighbours(current_node)
+		for(i in neighbours)
+		    open.push(new Node(current_node, i, destination))
+	    }
+
+	}//End while
+	return result
+    }//End calculatePath
+    return calculatePath()
 }
+
 GlitchedGameObject.prototype.move = function(){
+
 }
 GlitchedGameObject.prototype.update = function(){
     GlitchedGameObject.update.call(this)
