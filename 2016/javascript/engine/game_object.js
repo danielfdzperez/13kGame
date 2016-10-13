@@ -5,11 +5,11 @@
 function GameObject(world, position, sprite, speed){
     this.world              = world
     this.position           = position
-    this.speed              = speed || new Vector(0)
+    this.speed              = speed //|| new Vector(0)
     this.id                 = GameObject.id++
     //this.collision_detector = collision_detector || []
-    this.sprite             = sprite || new Map()
-    this.state              = new State(this)
+    //this.sprite             = sprite || new Map()
+    //this.state              = new State(this)
     
 }
 
@@ -28,7 +28,7 @@ GameObject.prototype.playSound = function(name){
 /**
  * delta : delta time to update the physics
  * external_force : Is a force in the world like the gravitational force
-*//
+*/
 GameObject.prototype.updatePhysics = function(delta, external){
     //this.position.
 }
@@ -42,7 +42,7 @@ GameObject.prototype.updatePhysics = function(delta, external){
  *
  * return obj : Objeto con los elementos {down, up, left, right} con numeros enteros.
  */
-Character.prototype.getSquarePoints = function(x, y, tile_size, extra){
+GameObject.prototype.getSquarePoints = function(x, y, tile_size, extra){
 	var obj = {}
 	var extra = extra || 0
 	obj["down"]  = Math.floor((y+this.dimensions-1 + extra)/tile_size)

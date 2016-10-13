@@ -12,13 +12,13 @@ Point.prototype.random = function(x_limit, y_limit){
     this.y = Math.random() * y_limit
 }
 
-Point.prototype.getX() = function(){
+Point.prototype.getX = function(){
 	return this.x
 }
-Point.prototype.getY() = function(){
+Point.prototype.getY = function(){
 	return this.y
 }
-Point.prototype.setPoint(x, y) = function(){
+Point.prototype.setPoint = function(x,y){
 	this.x = x
 	this.y = y
 }

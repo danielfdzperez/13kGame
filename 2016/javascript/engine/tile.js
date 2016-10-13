@@ -18,7 +18,7 @@ function Tile(walkable, size, sprite){
  * distance => Distance to the player to the scroll
  */
 Tile.prototype.draw = function(ctx, y, x, distance){
-    ctx.fillStyle = this.color
+    ctx.fillStyle = this.sprite//this.color
     ctx.fillRect(x*this.size + distance.x, y*this.size + distance.y, this.size, this.size)
     ctx.strokeStyle = 'black'
     ctx.lineWidth  = 0.8

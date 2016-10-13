@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!--<script src="frame_rate_counter.js"></script>-->
+    <script src="javascript/engine/point.js"></script>
+    <script src="javascript/engine/tile.js"></script>
+    <script src="javascript/state.js"></script>
+    <script src="javascript/engine/game_object.js"></script>
+    <script src="javascript/glitchedGameObject.js"></script>
+    <script src="javascript/glitchedCharacter.js"></script>
+    <script src="javascript/world.js"></script>
+    <script>
+       window.addEventListener("load", start, false)
+       var world
+       function start(){
+	   world = new World()
+       }
+    </script>
+</head>
+<body>
+    <div id="menu">
+    </div>
+    <div id="game">
+        <canvas id ="canvas" width="650" height="500"></canvas>
+    </div>
+</body>
+</html>
