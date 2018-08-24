@@ -17,7 +17,7 @@ State.decreaseError = function(){
 
 State.prototype.update = function(){
     if(this.current_state == "normal"){
-        var n = Math.floor(Math.random()*10))
+        var n = Math.floor(Math.random()*10)
         if(n < State.error_probability)
             this.changeState()
     }
