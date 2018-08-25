@@ -53,10 +53,7 @@ LaserPart.prototype.draw = function(ctx,color,shadow_color){
 }
 
 LaserPart.prototype.opositeDirections = function(laser_part){
-    //Not defense programing. If you want defense programing add 
-    //(this.orientation == laser_part.orientation+1 ||  this.orientation+1 == laser_part.orientation) && 
-    //        this.orientation != LaserPart.no_direction && laser_part.orientation != LaserPart.no_direction
-    return this.orientation == laser_part.orientation+1 ||  this.orientation+1 == laser_part.orientation
+    return opositeDirections(this.orientation,laser_part.orientation)
 }
 
 LaserPart.prototype.noExist = function(){
@@ -79,7 +76,7 @@ LaserPart.prototype.sameOrientation = function(part){
 	    (part.orientation == LaserPart.right ||  part.orientation == LaserPart.left)) 
 }
 
-function Laser(type = null,orientation = undefined,tile = null){
+function Laser(type = null,orientation = LaserPart.no_direction,tile = null){
     this.part1= new LaserPart(orientation)
     this.part2= new LaserPart(orientation)
     this.teleported = false
@@ -268,6 +265,9 @@ Laser.prototype.nowExist = function(){
 }
 
 Laser.prototype.configurationBetweenLaseres = function(laser){
+    if(this.isOff() || laser.isOff())
+	return
+    
     let orientation_parts1 = this.part1.sameOrientation(laser.part1)
     let orientation_part2_part1 = this.part2.sameOrientation(laser.part1)
     let orientation_parts2 = this.part2.sameOrientation(laser.part2)

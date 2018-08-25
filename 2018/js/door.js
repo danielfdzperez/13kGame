@@ -89,8 +89,11 @@ Door.prototype.openAction = function(){
 
 //Change the state to closing
 Door.prototype.closeAction = function(){
-    if(this.state == Door.opening || this.state == Door.open)
+    if(this.state == Door.opening || this.state == Door.open){
 	this.state = Door.closing
+	this.walkable = false
+	this.tileConfiguration()
+    }
 }
 
 //Action of the door with the lasers. At any stage.
@@ -99,7 +102,7 @@ Door.prototype.laserActions = function(laser = this.tile.getOnLaseres()){
 	laser = [laser]
     //Si esta abriendose y llega a la mitad se reconfiguran los lasers desde aqui. Cuando exceda un poco de la mitad ya no es necesario
     if(this.state == Door.opening && this.animation > Tile.half_size && this.animation < Tile.half_size+3){
-	this.tile.reconfigureLasers()	
+	this.tile.reconfigureLasers(false)	
     }
 
     if((this.state == Door.closed || this.state == Door.closing) && this.animation <= Tile.half_size)

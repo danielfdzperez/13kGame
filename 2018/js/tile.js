@@ -8,6 +8,8 @@ function Tile(x,y,walkable = true,laser = true,draw_me = null){
     this.drawMe = draw_me
     this.pos_x = x*Tile.size
     this.pos_y = y*Tile.size
+    this.tile_x = x
+    this.tile_y = y
     this.my_walkable = walkable
     this.my_transitable = true
 
@@ -25,11 +27,9 @@ Tile.prototype.hasObject = function(){
     return this.object != null
 }
 
-Tile.prototype.draw = function(ctx,x,y){
-    var pos_x = x*Tile.size
-    var pos_y = y*Tile.size
+Tile.prototype.draw = function(ctx){
     ctx.save()
-    ctx.translate(pos_x,pos_y)
+    ctx.translate(this.pos_x,this.pos_y)
     if(this.drawMe == null){
 	 //Create gradient
 	 var grd = ctx.createLinearGradient(0,0,50,90)
@@ -68,8 +68,7 @@ Tile.prototype.draw = function(ctx,x,y){
 	
 	 ctx.stroke()
     }else
-	drawMe(this,ctx,x,y)
-
+	drawMe(this,ctx)
     
     ctx.restore()
 }
@@ -127,7 +126,7 @@ Tile.prototype.numberOfLasersOn = function(){
 
 Tile.prototype.getOffLaser = function(){
     if(this.laser.length < 4){
-	this.laser.push(new Laser(this))
+	this.laser.push(new Laser(null,NONE,this))
 	return this.laser.slice(-1)[0] 
     }
 
@@ -163,7 +162,7 @@ Tile.prototype.addLaser = function(laser_incoming,teleported = false){
     laser.spreadAction()
 }
 
-Tile.prototype.reconfigureLasers = function(){
+Tile.prototype.reconfigureLasers = function(with_obj = true){
     //Get on lasers
     let laser = this.getOnLaseres()
     //Complete all the lasers
@@ -172,7 +171,7 @@ Tile.prototype.reconfigureLasers = function(){
 
     this.configurationBetweenLasers(laser)
 
-    if(this.hasObject())
+    if(this.hasObject() && with_obj)
 	this.object.laserAction(laser)
 
     //Spread the lasers if it can do it

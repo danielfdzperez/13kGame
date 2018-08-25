@@ -14,6 +14,10 @@ var RIGHT = 4
 var LEFT = 3
 var NONE = 0
 
+function opositeDirections(dir1,dir2){
+    return (dir1 == UP && dir2 == DOWN) || (dir1 == DOWN && dir2 == UP) || (dir1 == RIGHT && dir2 == LEFT) || (dir2 == RIGHT && dir1 == LEFT)
+}
+
 function rotation(orientation){
     let angle = 0
     switch(orientation){
@@ -119,7 +123,8 @@ function createMirror(orientation = UP, tile = null){
 		}
 		laser[l].nowExist()
 	    }
-	this.tile.configurationBetweenLasers()
+	//this.tile.configurationBetweenLasers()
+	this.tile.reconfigureLasers(false)
     }
 
     return new GameObject("mirror",tile,d,lA,orientation,false,true,forbbiden)
@@ -132,9 +137,11 @@ function createLaserGenerator(orientation = UP,laser_type = Laser.type1,tile = n
     //TODO hacer bonito
     function d(ctx){
 	ctx.fillStyle = "grey";
+	//Walls
 	ctx.fillRect(0, Tile.size-size, Tile.size, size);
 	ctx.fillRect(0, 0, size, Tile.size);
 	ctx.fillRect(Tile.size-size, 0, size, Tile.size);
+	//Triangle
 	ctx.beginPath()
 	ctx.fillStyle = laser_type;
 	ctx.moveTo(10,Tile.size-size)

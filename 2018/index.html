@@ -5,6 +5,7 @@
 	<script src="js/laser.js"></script>
 	<script src="js/tile.js"></script>
 	<script src="js/gameObject.js"></script>
+	<script src="js/laserReceptor.js"></script>
 	<script src="js/door.js"></script>
     </head>
     <body>
@@ -13,19 +14,23 @@
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");
 		var t = new Tile(0,0)
+		var t2 = new Tile(1,1)
 			        //t.laser[0].changeOrientation(LaserPart.down,LaserPart.right)
     		var d = new Door(t,Door.vertical)
      		var b = createBox(t)
      		var m = createMirror(DOWN)
      		var g1 = createLaserGenerator(RIGHT,Laser.type1)
+var lR = new LaserReceptor(() => {d.openAction()},() => {d.closeAction()})
     		//t.addObject(d)
     		//t.addObject(b)
     		//t.addObject(m)
     		//t.addObject(g1)
+    		t.addObject(lR)
+    		t2.addObject(d)
     		//t.addLaser(new Laser(Laser.type1,LaserPart.right))
-    		t.addLaser(new Laser(Laser.type1,LaserPart.up))
+    		//t.addLaser(new Laser(Laser.type1,LaserPart.up))
     		//t.addLaser(new Laser(Laser.type1,LaserPart.down))
-    		t.addLaser(new Laser(Laser.type2,LaserPart.left))
+    		//t.addLaser(new Laser(Laser.type2,LaserPart.left))
     		/*for(var y = 0; y<10; y++)
 			for(var x = 0; x<10;x++){
 			    	t.setPosition(x,y)
@@ -43,9 +48,13 @@
     		function draw(){
 		    //for(let i = 0; i < Tile.size; i++){
 			ctx.clearRect(0, 0, c.width, c.height);
-			t.draw(ctx,3,3)
+			t.draw(ctx,)
 			t.drawLaser(ctx)
 			t.drawObject(ctx)
+			t2.draw(ctx)
+			t2.drawLaser(ctx)
+			t2.drawObject(ctx)
+
 		    //}
 			setTimeout(draw,100)
 		}
