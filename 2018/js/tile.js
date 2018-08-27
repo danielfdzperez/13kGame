@@ -1,4 +1,4 @@
-function Tile(x,y,walkable = true,laser = true,draw_me = null){
+function Tile(x,y,map,walkable = true,laser = true,draw_me = null){
     this.walkable = walkable
     this.transitable = true
     this.object = null
@@ -12,6 +12,7 @@ function Tile(x,y,walkable = true,laser = true,draw_me = null){
     this.tile_y = y
     this.my_walkable = walkable
     this.my_transitable = true
+    this.map = map
 
 }
 
